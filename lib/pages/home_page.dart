@@ -4,9 +4,10 @@ import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:travelkuy/models/carousel_model.dart';
 import 'package:travelkuy/themes/color_theme.dart';
 import 'package:travelkuy/themes/font_style_theme.dart';
-import 'package:travelkuy/widgets/booking_card_widget.dart';
+import 'package:travelkuy/widgets/booking_widget.dart';
 import 'package:travelkuy/widgets/bottom_navigation_widget.dart';
 import 'package:travelkuy/widgets/popular_destionation_widger.dart';
+import 'package:travelkuy/widgets/travlog_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -43,15 +44,18 @@ class _HomePageState extends State<HomePage> {
           physics: ClampingScrollPhysics(),
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 16, bottom: 24),
+              padding: EdgeInsets.only(left: 16, top: 8),
               child: Text(
-                'Hi, Dani This Promos for You !',
+                'Hi, Dani 👋 This Promos for You !',
                 style: mTitleStyle,
               ),
             ),
             Container(
               alignment: Alignment.centerLeft,
-              margin: EdgeInsets.only(left: 16, right: 16),
+              margin: EdgeInsets.only(
+                left: 16,
+                right: 16,
+              ),
               width: MediaQuery.of(context).size.width,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 190,
+                    height: 180,
                     child: Swiper(
                       onIndexChanged: (index) {
                         setState(() {
@@ -71,19 +75,18 @@ class _HomePageState extends State<HomePage> {
                       itemCount: carousels.length,
                       itemBuilder: (BuildContext context, index) {
                         return Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            image: DecorationImage(
-                                image: AssetImage(
-                                    carousels[index]!.image.toString()),
-                                fit: BoxFit.cover),
+                          child: Center(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.asset(
+                                carousels[index]!.image.toString(),
+                                fit: BoxFit.contain,
+                              ),
+                            ),
                           ),
                         );
                       },
                     ),
-                  ),
-                  SizedBox(
-                    height: 12,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -144,7 +147,7 @@ class _HomePageState extends State<HomePage> {
                       BookingCard(
                         svgUrl: 'assets/svg/service_hotel_icon.svg',
                         serviceTitle: 'Hotel',
-                        serviceSubtitle: "Let's take a break !",
+                        serviceSubtitle: "Let's take a break",
                       ),
                       BookingCard(
                         svgUrl: 'assets/svg/service_car_rental_icon.svg',
@@ -163,7 +166,15 @@ class _HomePageState extends State<HomePage> {
                 style: mTitleStyle,
               ),
             ),
-            PopularDestinations()
+            PopularDestinations(),
+            Padding(
+              padding: EdgeInsets.only(left: 16, top: 12, bottom: 12),
+              child: Text(
+                "Travlog !",
+                style: mTitleStyle,
+              ),
+            ),
+            Travlog()
           ],
         ),
       ),
